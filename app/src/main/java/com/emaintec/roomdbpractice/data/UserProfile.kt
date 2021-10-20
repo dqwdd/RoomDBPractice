@@ -1,4 +1,4 @@
-package com.emaintec.roomdbpractice
+package com.emaintec.roomdbpractice.data
 
 class UserProfile(
     var name : String,
