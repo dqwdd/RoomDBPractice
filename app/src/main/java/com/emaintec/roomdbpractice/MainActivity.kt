@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.room.*
-import com.emaintec.roomdbpractice.UserProfileDatabase.UserProfileDatabase.Companion.getInstance
+import com.emaintec.roomdbpractice.database.UserProfileDatabase
 import com.emaintec.roomdbpractice.databinding.ActivityMainBinding
 import com.google.firebase.firestore.auth.User
 import kotlinx.coroutines.CoroutineScope

@@ -1,4 +1,4 @@
-package com.emaintec.roomdbpractice
+package com.emaintec.roomdbpractice.util
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
