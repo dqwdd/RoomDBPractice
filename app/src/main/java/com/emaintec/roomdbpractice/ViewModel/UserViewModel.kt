@@ -19,7 +19,7 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun addUser(user: UserProfile) {
-        v
+        viewM
     }
 
 
