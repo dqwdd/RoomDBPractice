@@ -5,9 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.emaintec.roomdbpractice.R
+import com.emaintec.roomdbpractice.databinding.FragmentListBinding
 
 class AddFragment : Fragment() {
+
+    lateinit var binding : FragmentListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,8 +22,9 @@ class AddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add, container, false)
+
+        return binding.root
     }
 
 }
