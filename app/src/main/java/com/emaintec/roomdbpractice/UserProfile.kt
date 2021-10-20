@@ -1,8 +1,6 @@
 package com.emaintec.roomdbpractice
 
-class UserData(
+class UserProfile(
     var name : String,
     var age : String,
-
-
 ) {}

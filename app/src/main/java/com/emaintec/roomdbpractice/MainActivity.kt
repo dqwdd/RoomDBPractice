@@ -2,22 +2,27 @@ package com.emaintec.roomdbpractice
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.room.*
+import com.emaintec.roomdbpractice.UserProfileDatabase.UserProfileDatabase.Companion.getInstance
 import com.emaintec.roomdbpractice.databinding.ActivityMainBinding
+import com.google.firebase.firestore.auth.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
-    private lateinit var db : UserDataBase
+    lateinit var db : UserProfileDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-
-
-        db = UserDatabase.getInstance(applicationContext)!!
+        db = UserProfileDatabase.getInstance(applicationContext)
         fetchUserList()
     }
 
@@ -38,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addUser(view : View){
-        val user = User(binding.nameEditView.text.toString(),binding.ageEditView.text.toString())
+        val user = User(binding.textView.text.toString(),binding.tex.text.toString())
 
         CoroutineScope(Dispatchers.IO).launch {
             db.userDao().insert(user)

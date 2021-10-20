@@ -6,23 +6,23 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.google.firebase.firestore.auth.User
 
-class RoomDataBase {
+class UserProfileDatabase {
 
 
     @Database(entities = [User::class], version = 1)
-    abstract class UserDatabase : RoomDatabase() {
-        abstract fun userDao() : UserDao
+    abstract class UserProfileDatabase : RoomDatabase() {
+        abstract fun userDao() : UserProfileDao
 
         companion object{
-            private var instance : UserDatabase? = null
+            private var instance : UserProfileDatabase? = null
 
             @Synchronized
-            fun getInstance(context : Context) : UserDatabase? {
+            fun getInstance(context : Context) : UserProfileDatabase? {
                 if(instance == null){
-                    synchronized(UserDatabase::class){
+                    synchronized(UserProfileDatabase::class){
                         instance = Room.databaseBuilder(
                             context.applicationContext,
-                            UserDatabase::class.java,
+                            UserProfileDatabase::class.java,
                             "user.db"
                         ).build()
                     }
