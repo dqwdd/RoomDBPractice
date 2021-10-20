@@ -18,7 +18,7 @@ abstract class UserProfileDatabase : RoomDatabase() {
         @Volatile
         private var instance : UserProfileDatabase? = null
 
-        fun getInstance(context : Context) : UserProfileDatabase? {
+        fun getDatabase(context : Context) : UserProfileDatabase? {
             val tempInstance = instance
             if(tempInstance != null) {
                 return instance
