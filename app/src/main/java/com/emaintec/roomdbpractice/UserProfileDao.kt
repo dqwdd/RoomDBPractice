@@ -1,47 +1,25 @@
 package com.emaintec.roomdbpractice
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.google.firebase.firestore.auth.User
+import com.emaintec.roomdbpractice.data.UserProfile
 
+@Dao
 interface UserProfileDao {
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(user: UserProfile)
 
-    @Entity
-    data class User (
-        var name : String,
-        var age : String,
-        @Embedded
-        var userdata : Userdata
-        )
+//    @Update
+//    suspend fun update(user: UserProfile)
+//
+//    @Delete
+//    suspend fun delete(user: UserProfile)
 
-    {
-        @PrimaryKey(autoGenerate = true)
-        var id = 0
-    }
+    @Query("SELECT * FROM user_table ORDER BY id ASC")
+    fun readAllData(): LiveData<List<UserProfile>>
 
-    data class Userdata(
+//    @Query("DELETE FROM user_table ")
+//    fun deleteAll()
 
-        var phone : String,
-        var address : String
-    )
-
-
-    @Dao
-    interface UserDao {
-        @Insert(onConflict = OnConflictStrategy.REPLACE)
-        suspend fun insert(user: User)
-
-        @Update
-        suspend fun update(user: User)
-
-        @Delete
-        suspend fun delete(user: User)
-
-        @Query("SELECT * FROM User")
-        suspend fun getAll(): List<User>
-
-        @Query("DELETE FROM User ")
-        suspend fun deleteAll()
-
-    }
 }
