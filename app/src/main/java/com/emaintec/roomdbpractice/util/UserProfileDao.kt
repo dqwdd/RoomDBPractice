@@ -8,7 +8,7 @@ import com.emaintec.roomdbpractice.data.UserProfile
 interface UserProfileDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(user: UserProfile)
+    suspend fun addUser(user: UserProfile)
 
 //    @Update
 //    suspend fun update(user: UserProfile)
