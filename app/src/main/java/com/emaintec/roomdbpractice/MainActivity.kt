@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        db = UserProfileDatabase.getInstance(applicationContext)
+        db = UserProfileDatabase.getDatabase(applicationContext)!!
         fetchUserList()
     }
 
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
 
             val load = async(Dispatchers.IO) {
-                val userList = db.userDao().getAll()
+                val userList = db.userDao().readAllData()
                 for(i in userList){
                     userListText += "\n${i.id} ${i.name}, ${i.age}"
                 }
