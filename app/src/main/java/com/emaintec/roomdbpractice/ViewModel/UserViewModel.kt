@@ -3,9 +3,13 @@ package com.emaintec.roomdbpractice.ViewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.emaintec.roomdbpractice.UserRepository
 import com.emaintec.roomdbpractice.data.UserProfile
 import com.emaintec.roomdbpractice.database.UserProfileDatabase
+import com.squareup.okhttp.Dispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class UserViewModel(application: Application): AndroidViewModel(application) {
 
@@ -19,7 +23,9 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun addUser(user: UserProfile) {
-        viewM
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addUser(user)
+        }
     }
 
 
