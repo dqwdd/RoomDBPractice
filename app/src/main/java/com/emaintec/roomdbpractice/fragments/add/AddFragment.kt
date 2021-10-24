@@ -1,6 +1,7 @@
 package com.emaintec.roomdbpractice.fragments.add
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,7 +35,18 @@ class AddFragment : Fragment() {
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         binding.buttonAdd.setOnClickListener {
-            insertDataToDatabase()
+
+            if (binding.edtName == null || binding.edtAge == null) {
+                Toast.makeText(requireContext(), "이름 혹은 나이를 입력해주세요", Toast.LENGTH_SHORT).show()
+            }
+
+            if (chkNum(binding.edtAge.text.toString())) {
+                insertDataToDatabase()
+            }
+            else {
+                Toast.makeText(requireContext(), "나이 칸에는 숫자만 입력해주세요", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         return binding.root
@@ -42,7 +54,7 @@ class AddFragment : Fragment() {
 
     private fun insertDataToDatabase() {
         val name = binding.edtName.text.toString()
-        val age = binding.edtAge.text.toString()
+        val age = binding.edtAge.text
 
         if (inputCheck(name, age)){
             //Create User Object
@@ -51,7 +63,7 @@ class AddFragment : Fragment() {
             mUserViewModel.addUser(user)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
             //Navigate Back
-            findNavController().navigate(R.id.action_listFragment_to_addFragment)
+            findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
         else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT).show()
@@ -59,8 +71,21 @@ class AddFragment : Fragment() {
 
     }
 
-    private fun inputCheck(name: String, age: String): Boolean {
+    private fun inputCheck(name: String, age: Editable): Boolean {
         return !(TextUtils.isEmpty(name) && age.isEmpty())
+    }
+
+
+    fun chkNum(str: String) : Boolean {
+        var temp: Char
+        var result = true
+        for (i in 0 until str.length) {
+            temp = str.elementAt(i)
+            if (temp.toInt() < 48 || temp.toInt() > 57) {
+                result = false
+            }
+        }
+        return result
     }
 
 
